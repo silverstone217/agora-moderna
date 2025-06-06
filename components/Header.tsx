@@ -29,8 +29,8 @@ const Header = () => {
     <header
       className="lg:max-w-md p-4 border rounded-lg 
     fixed lg:left-1/2 lg:transform lg:-translate-x-1/2 top-4 lg:w-full
-    left-4 right-4 shadow-2xs z-50 backdrop-blur-xl
-    transition-all duration-300 ease-in-out
+    left-4 right-4 shadow-2xs z-50 backdrop-blur-2xl
+    transition-all duration-300 ease-in-out bg-dark/40 dark:border-black
     "
     >
       <div className="lg:w-full flex items-center gap-4 justify-between">
