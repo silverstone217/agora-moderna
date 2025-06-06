@@ -15,9 +15,16 @@ import SmallScreenNavLink from "./SmallScreenNavLink";
 import AuthButton from "./AuthButton";
 import useGetUser from "@/hooks/getUser";
 import UserAvatar from "./UserAvatar";
+import { usePathname } from "next/navigation";
+
+// const NoAllowedLinks = ["/admins"];
 
 const Header = () => {
   const { user } = useGetUser();
+  const pathname = usePathname();
+
+  if (pathname.includes("/admins")) return null;
+
   return (
     <header
       className="lg:max-w-md p-4 border rounded-lg 
@@ -100,7 +107,13 @@ const ReturLinksPage = () => {
       <ToggleTheme />
 
       {/* login */}
-      {user ? <UserAvatar /> : <AuthButton />}
+      {user ? (
+        <Link href={"/admins/overview"}>
+          <UserAvatar />
+        </Link>
+      ) : (
+        <AuthButton />
+      )}
     </div>
   );
 };

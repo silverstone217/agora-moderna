@@ -23,11 +23,11 @@ export const LinksHome = [
 export const AdminPages =  [
     {
         label: 'Overview',
-        value: '/dashboard/overview'
+        value: '/admins/overview'
     },
     {
         label : 'Blogs',
-        value: '/dashboard/blogs'
+        value: '/admins/blogs'
     },
     {
         label : 'Contact',
