@@ -1,24 +1,23 @@
 "use client";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import useGetUser from "@/hooks/useGetUser";
 import React from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import useGetUser from "@/hooks/getUser";
 
-const AvatarComponent = () => {
+const UserAvatar = () => {
   const { user } = useGetUser();
 
   if (!user) return null;
 
-  const image = user.image || "https://github.com/shadcn.png";
   const ShortName = (user.name || user.email?.split("@")[0] || "NN")
     .slice(0, 2)
     .toUpperCase();
 
   return (
     <Avatar>
-      <AvatarImage src={image} />
+      {user.image && <AvatarImage src={user.image} />}
       <AvatarFallback>{ShortName}</AvatarFallback>
     </Avatar>
   );
 };
 
-export default AvatarComponent;
+export default UserAvatar;

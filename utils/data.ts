@@ -1,11 +1,33 @@
+import { Rss, Headset, Info } from 'lucide-react';
+
 export const LinksHome = [
+
     {
-        label: 'Accueil',
-        value: '/'
+        label : 'Blogs',
+        value: '/blogs',
+        icon:  Rss
+
+    },
+    {
+        label : 'Contact',
+        value: '/contact',
+        icon:  Headset
+    },
+    {
+        label : 'A propos',
+        value: '/a-propos',
+        icon:  Info
+    }
+]
+
+export const AdminPages =  [
+    {
+        label: 'Overview',
+        value: '/dashboard/overview'
     },
     {
         label : 'Blogs',
-        value: '/blogs'
+        value: '/dashboard/blogs'
     },
     {
         label : 'Contact',

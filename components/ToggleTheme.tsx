@@ -1,11 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button } from "./ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 const ToggleTheme = () => {
   const { setTheme, theme } = useTheme();
+
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -17,14 +24,19 @@ const ToggleTheme = () => {
   }
 
   return (
-    <Button
-      size={"lg"}
-      variant={"outline"}
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className=""
+    <div
+      role="button"
+      onClick={() => (theme === "dark" ? setTheme("light") : setTheme("dark"))}
+      aria-label="toggle theme button"
+      className="cursor-pointer items-center flex justify-center"
     >
-      {theme === "dark" ? <Moon /> : <Sun />}
-    </Button>
+      <Tooltip>
+        <TooltipTrigger>{theme === "dark" ? <Moon /> : <Sun />}</TooltipTrigger>
+        <TooltipContent>
+          <p>{theme === "dark" ? "Sombre" : "Claire"}</p>
+        </TooltipContent>
+      </Tooltip>
+    </div>
   );
 };
 

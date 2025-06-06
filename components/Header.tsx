@@ -1,183 +1,106 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import logo from "@/public/images/logo.png";
 import Image from "next/image";
-import { hostGrotesk } from "@/lib/fonts";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { LinksHome } from "@/utils/data";
-import { Button } from "./ui/button";
-import { AlignJustify, X } from "lucide-react";
 import ToggleTheme from "./ToggleTheme";
-import AuthFormDialog from "./auth/AuthFormDialog";
-import useGetUser from "@/hooks/useGetUser";
-import AvatarComponent from "./AvatarComponent";
-import { signOut } from "next-auth/react";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { hostGrotesk } from "@/lib/fonts";
+import SmallScreenNavLink from "./SmallScreenNavLink";
+import AuthButton from "./AuthButton";
+import useGetUser from "@/hooks/getUser";
+import UserAvatar from "./UserAvatar";
 
-function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+const Header = () => {
   const { user } = useGetUser();
-  const router = useRouter();
-
-  const handleSignOut = async () => {
-    try {
-      await signOut({ redirectTo: "/" });
-      router.refresh();
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      toast.error("Erreur survenue", {
-        description: "Veuillez reesayer plus tard!",
-      });
-    }
-  };
-
   return (
     <header
-      className={`fixed z-50 bg-background w-full
-        border-b shadow flex flex-col overflow-hidden
-        ${isOpen ? "h-svh" : "h-14"}
-        transition-all duration-500 ease-in-out
-    `}
+      className="lg:max-w-md p-4 border rounded-lg 
+    fixed lg:left-1/2 lg:transform lg:-translate-x-1/2 top-4 lg:w-full
+    left-4 right-4 shadow-2xs z-50 backdrop-blur-xl
+    transition-all duration-300 ease-in-out
+    "
     >
-      {/* container */}
-      <div
-        className={`flex items-center w-full max-w-7xl 
-            mx-auto px-4 lg:px-6 xl:px-8 py-2 justify-between
-            transition-all duration-500 ease-in-out gap-6
+      <div className="lg:w-full flex items-center gap-4 justify-between">
+        <Link
+          href={"/"}
+          className="flex items-center gap-1.5
+        transition-all duration-300 ease-in-out
+        "
+        >
+          <Image
+            src={logo}
+            alt="Logo"
+            width={400}
+            height={400}
+            className="size-8 object-cover"
+            priority
+          />
+          <span
+            className={`hidden lg:block text-sm font-extrabold
+          ${hostGrotesk.className} text-primary
+          transition-all duration-300 ease-in-out
             `}
-      >
-        {/* left side */}
-        <div className="flex items-center gap-6">
-          {/* logo */}
-          <Link href={"/"} onClick={() => setIsOpen(false)}>
-            <div className="flex items-center gap-1.5">
-              <Image
-                src={logo}
-                alt="Logo"
-                width={500}
-                height={500}
-                priority
-                className="h-10 w-10 object-cover shrink-0"
-              />
-              <span
-                className={`${hostGrotesk.className} hidden
-                font-extrabold text-lg text-primary lg:block
-                transition-all duration-300 ease-in-out
-                `}
-              >
-                Agora Moderna
-              </span>
-            </div>
-          </Link>
+          >
+            Agora Moderna
+          </span>
+        </Link>
 
-          {/* menu links */}
-          <nav className="lg:flex items-center gap-2.5 hidden">
-            {LinksHome.map((lk, idx) => (
-              <Link
-                href={lk.value}
-                key={idx}
-                className={`font-medium hover:opacity-75
-                transition-all duration-300 ease-in-out
-              `}
-                onClick={() => setIsOpen(false)}
-              >
-                <span>{lk.label}</span>
-              </Link>
-            ))}
-          </nav>
+        {/* links */}
+        <div className="hidden lg:block">
+          <ReturLinksPage />
         </div>
 
-        {/* right side */}
-        <div className="flex items-center gap-4">
-          <div className="lg:flex items-center gap-4 hidden">
-            {/* sign in btn */}
-            {user ? (
-              <Link href={"#"} onClick={handleSignOut}>
-                <AvatarComponent />
-              </Link>
-            ) : (
-              <AuthFormDialog isOpen={isOpen} setIsOpen={setIsOpen} />
-            )}
-          </div>
+        {/* small screen */}
+        <div
+          className="flex items-center gap-4 lg:hidden
+        transition-all duration-300 ease-in-out
+        "
+        >
+          {/* login */}
+          {!user && <AuthButton />}
 
-          {/* toggle theme */}
+          {/* theme */}
           <ToggleTheme />
 
-          {/* menu open for small screens */}
-          <Button
-            variant={"outline"}
-            size={"lg"}
-            onClick={() => setIsOpen(!isOpen)}
-            className="transition-all duration-300 ease-in-out lg:hidden"
-          >
-            {isOpen ? (
-              <X className="size-6 transition-all duration-300 ease-in-out" />
-            ) : (
-              <AlignJustify className="size-6 transition-all duration-300 ease-in-out" />
-            )}
-          </Button>
+          {/* Menu */}
+          <SmallScreenNavLink />
         </div>
       </div>
-      {/* down part */}
-      <SmallScreenNav isOpen={isOpen} setIsOpen={setIsOpen} />
     </header>
   );
-}
+};
 
 export default Header;
 
-type SmallNavProps = {
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isOpen: boolean;
-};
-const SmallScreenNav = ({ setIsOpen, isOpen }: SmallNavProps) => {
+const ReturLinksPage = () => {
   const { user } = useGetUser();
-  const router = useRouter();
-
-  const handleSignOut = async () => {
-    try {
-      await signOut({ redirectTo: "/" });
-      router.refresh();
-      setIsOpen(false);
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      toast.error("Erreur survenue", {
-        description: "Veuillez reesayer plus tard!",
-      });
-    }
-  };
-
   return (
-    <div className={` mt-4 w-full lg:hidden flex flex-col gap-4 flex-1 pb-4`}>
+    <div className="flex items-center gap-4 transition-all duration-300 ease-in-out">
       {/* links */}
-      <nav className="flex flex-col gap-2.5 w-full px-4 md:px-6 flex-1">
-        {LinksHome.map((lk, idx) => (
-          <Link
-            href={lk.value}
-            key={idx}
-            className={`font-medium text-lg hover:opacity-75
-                transition-all duration-300 ease-in-out
-              `}
-            onClick={() => setIsOpen(false)}
-          >
-            <span>{lk.label}</span>
-          </Link>
-        ))}
-      </nav>
+      {LinksHome.map((link, index) => (
+        <Link href={link.value} key={index}>
+          <Tooltip>
+            <TooltipTrigger>
+              <link.icon />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{link.label}</p>
+            </TooltipContent>
+          </Tooltip>
+        </Link>
+      ))}
 
-      <div className="justify-end flex items-center gap-4 px-4 md:px-6">
-        {/* sign up btn */}
-        {user ? (
-          <Link href={"#"} onClick={handleSignOut}>
-            <AvatarComponent />
-          </Link>
-        ) : (
-          <AuthFormDialog isOpen={isOpen} setIsOpen={setIsOpen} />
-        )}
-      </div>
+      {/* theme */}
+      <ToggleTheme />
+
+      {/* login */}
+      {user ? <UserAvatar /> : <AuthButton />}
     </div>
   );
 };

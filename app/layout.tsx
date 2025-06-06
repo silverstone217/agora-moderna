@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Lora } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import Header from "@/components/Header";
-import { Toaster } from "@/components/ui/sonner";
 import AuthProvider from "@/components/providers/AuthProvider";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { Toaster } from "@/components/ui/sonner";
+import Header from "@/components/Header";
 
 const lora = Lora({
   variable: "--font-lora",
@@ -12,11 +12,9 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "Agora moderna",
+  title: "Agora Moderna",
   description:
-    "Votre blog preféré, retrouver du contenu incroyable, fascinant et divertissant.",
-  keywords:
-    "blog, contenu, incroyable, fascinant, divertissant, moderne, actualité, tech, nature, culture, cinema, investissement",
+    "Retrouve les meilleurs poste de blog sur notre plaforme Agora moderna.",
 };
 
 export default function RootLayout({
@@ -29,21 +27,14 @@ export default function RootLayout({
       <body className={`${lora.className} scroll-smooth antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
           <AuthProvider>
-            <div>
-              <Header />
-              <main
-                className="pt-16 max-w-7xl 
-            mx-auto px-4 lg:px-6 xl:px-8"
-              >
-                {children}
-              </main>
-              <Toaster />
-            </div>
+            <Header />
+            <main>{children}</main>
+            <Toaster />
           </AuthProvider>
         </ThemeProvider>
       </body>
