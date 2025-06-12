@@ -1,9 +1,15 @@
-import { Rss, Headset, Info } from 'lucide-react';
+import { Rss, Headset, Info, Home } from 'lucide-react';
 import img1 from "@/public/images/img1.jpg";
 import img2 from "@/public/images/img2.jpg";
 import img3 from "@/public/images/img3.jpg";
 
 export const LinksHome = [
+    {
+        label : 'Accueil',
+        value: '/',
+        icon:  Home
+
+    },
 
     {
         label : 'Blogs',
@@ -57,3 +63,5 @@ export const HeroHomeData = [{
     description: "Alliez passion et ambition pour faire grandir vos projets, innover et avancer vers le succès durable.",
     image: img3
   },]
+
+  export const Text_color_primary = "#7054cc"

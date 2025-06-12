@@ -25,7 +25,7 @@ const Hero = () => {
   const content = useMemo(() => HeroHomeData[index], [index]);
 
   return (
-    <div className="w-full relative h-svh">
+    <div className="w-full relative h-[80svh]">
       {/* image absolute */}
       <div
         className="absolute w-full h-full left-0 right-0 top-0 -z-10
@@ -53,7 +53,7 @@ const Hero = () => {
       "
       >
         <p className="text-xl flex items-center gap-3">
-          <span className="text-gray-500">Accueil</span>
+          <span className="opacity-50">Accueil</span>
           <span className="text-lg">{">"}</span>
           <span>Blogs</span>
         </p>

@@ -19,7 +19,7 @@ const Header = () => {
       {/* container */}
       <div className="flex flex-col gap-1.5 pt-4 px-4 md:px-6 xl:px-8 w-full">
         {/* top */}
-        <div className="flex items-center gap-1.5 justify-between w-full">
+        <div className="flex items-center gap-2 justify-between w-full">
           {/* logo */}
           <Link href={"/"}>
             <Image
@@ -49,7 +49,7 @@ const Header = () => {
             <Link
               href={link.value}
               key={index}
-              className={`pt-1 pb-4 border-b-2 border-background shrink-0 font-medium
+              className={`pt-1 pb-1.5 border-b-3 border-background shrink-0 font-medium
                 ${
                   pathname === link.value ? "border-b-primary" : "text-gray-500"
                 }
