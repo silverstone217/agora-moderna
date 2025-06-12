@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -187,4 +188,31 @@
     @apply bg-background text-foreground;
     letter-spacing: var(--tracking-normal);
   }
+}
+
+
+.prose h1 {
+  @apply text-3xl font-bold m-0 p-0;
+}
+
+.prose h2 {
+  @apply text-2xl font-semibold m-0 p-0;
+}
+
+.prose h3 {
+  @apply text-xl font-semibold m-0 p-0 ;
+}
+
+.prose strong {
+  @apply font-semibold;
+}
+
+.code-block-terminal {
+  @apply bg-black text-green-400 font-mono p-4 rounded-lg overflow-x-auto;
+  /* Fond noir, texte vert clair, police monospace, padding, coins arrondis, scroll horizontal */
+  white-space: pre-wrap;
+  /* Pour garder les retours à la ligne */
+  line-height: 1.5;
+  font-size: 0.875rem;
+  /* taille légèrement réduite */
 }
